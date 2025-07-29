@@ -1,42 +1,100 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+*{
+  box-sizing: border-box;;
+}
+.App {
+  width:100vw;
+  height: 1440px;
   padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(12, 96px);
+  grid-template-rows: repeat(20, 72px);
+  background-color: #fff;
+  column-gap: 20px;
+  align-content: center;
+  justify-content: center;
   text-align: center;
+  
+} 
+
+
+.Nav li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+.Header {
+ grid-column: 1/span 4;
+ grid-row: 1/span 2;
+ align-items: center;
+  display: flex; 
+  flex-direction: column;
+  padding-top:3.5rem;
+
+}
+.Header img {
+  width: 300px;
+  height: auto;
+}
+ 
+.Nav {
+ grid-column : 4/ span 9;
+ grid-row: 1/span 2;
+  align-items: center;
+  color: #333333;
+
+
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+
+.Nav ul{
+
+ display: flex;
+width: 963px;
+height: 145px;
+padding: 27px 68px;
+justify-content: space-between;
+align-items: flex-end;
+flex-shrink: 0;
+
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Nav a {
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 24px */
+letter-spacing: 1px;
+text-transform: uppercase;
+color:#333333;
+padding-top: 100px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.Main {
+  grid-column: 1/span 12;
+  grid-row: 3/span 17;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+ .Main article:first-of-type {
+    background-color: #495E57;
 
-.card {
-  padding: 2em;
-}
+    flex: 0.3;
+    
+ }
+ .Main article:second-of-type {
+    background-color: #F4CE14;
+    flex: 1;
+ }
 
-.read-the-docs {
-  color: #888;
+.Footer {
+  grid-column: 1/span 12;
+  grid-row: 17/span 4;
+  padding: 1rem;
+  background-color: #222;
+  display: flex;
+  justify-content: space-evenly;
 }

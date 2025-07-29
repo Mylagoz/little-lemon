@@ -1,7 +1,8 @@
 
-function Footer() {
+function Footer({ className }) {
     return (
-        <footer>
+        <footer className={className}>
+         <div>
           <h5>Doormat</h5>
              <ul>
                 <li><a href="#home">Home</a></li>
@@ -11,18 +12,24 @@ function Footer() {
                 <li><a href="#order_online">Order Online</a></li>
                 <li><a href="#login">Login</a></li>
              </ul>
+         </div>
+          <div>   
              <h5>Social Media</h5>
                 <ul>
                     <li><a href="#facebook">Facebook</a></li>
                     <li><a href="#twitter">Twitter</a></li>
                     <li><a href="#instagram">Instagram</a></li>
                 </ul>
+            </div>    
+
+               <div> 
                 <h5>Contact</h5>
                 <ul>
                     <li><a href="#address">Address</a></li>
                     <li><a href="#phone">Phone</a></li>
                     <li><a href="#email">Email</a></li>
                 </ul>
+               </div> 
              </footer>
        
 

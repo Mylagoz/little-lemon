@@ -1,9 +1,9 @@
 
      import Logo from '../assets/Logo.svg'
      
-     function Header() {
+     function Header({className}) {
         return (
-            <header>
+            <header className={className}>
                  <img src={Logo}/>
             </header>
         );

@@ -9,12 +9,12 @@ import './App.css'
 function App() {
 
   return (
-    <>
-    <Header />
-    <Nav />
-    <Main />
-    <Footer/>
-   </>
+    <div  className="App">
+    <Header className="Header" />
+    <Nav className="Nav" />
+    <Main className="Main" />
+    <Footer className="Footer"/>
+   </div>
   )
 }
 
