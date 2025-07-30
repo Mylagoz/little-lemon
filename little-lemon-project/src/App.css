@@ -1,98 +1,187 @@
-*{
-  box-sizing: border-box;;
+@import url('https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
+
 .App {
-  width:100vw;
-  height: 1440px;
-  padding: 2rem;
+  width: 100vw;
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: repeat(12, 96px);
-  grid-template-rows: repeat(20, 72px);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr auto;
   background-color: #fff;
   column-gap: 20px;
   align-content: center;
   justify-content: center;
   text-align: center;
-  
-} 
-
-
-.Nav li{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  align-items: center;
 }
-.Header {
- grid-column: 1/span 4;
- grid-row: 1/span 2;
- align-items: center;
-  display: flex; 
-  flex-direction: column;
-  padding-top:3.5rem;
 
+@media (max-width: 900px) {
+  .App {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  .Header,
+  .Main,
+  .Footer {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .Header img {
+    width: 60vw;
+    max-width: 200px;
+  }
+  .Nav ul {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .Nav a {
+    font-size: 18px;
+    padding-top: 0;
+  }
 }
-.Header img {
-  width: 300px;
+
+img {
+  max-width: 100%;
   height: auto;
 }
- 
-.Nav {
- grid-column : 4/ span 9;
- grid-row: 1/span 2;
-  align-items: center;
-  color: #333333;
 
-
+.Header {
+  grid-column: 1 / span 12;
+  grid-row: 1 / span 1;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline; 
+  justify-content:space-around; 
+  padding: 2rem 8rem 1rem 8rem;
+  background: #fff;
 }
 
+.Header img {
+  width: 200px;
+  height: auto;
+  align-self: baseline; /* Ensure logo sits on baseline */
+}
 
+.Nav {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+}
 
-.Nav ul{
+.Nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: baseline;
+  justify-content: space-evenly;
+  width: 80%;
+}
 
- display: flex;
-width: 963px;
-height: 145px;
-padding: 27px 68px;
-justify-content: space-between;
-align-items: flex-end;
-flex-shrink: 0;
-
+.Nav li {
+  margin: 0;
+  padding: 0;
+  align-items: baseline;
 }
 
 .Nav a {
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: 100%; /* 24px */
-letter-spacing: 1px;
-text-transform: uppercase;
-color:#333333;
-padding-top: 100px;
+  font-family: 'Karla', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333333;
+  text-decoration: none;
+  padding: 0.5rem 1rem 0 1rem;
+  display: inline-block;
 }
+
 .Main {
-  grid-column: 1/span 12;
-  grid-row: 3/span 17;
+  grid-column: 1 / span 12;
+  grid-row: 2 / span 1;
   background-color: #f4f4f4;
-  color: #333;
+  color: #333333;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
- .Main article:first-of-type {
-    background-color: #495E57;
 
-    flex: 0.3;
-    
- }
- .Main article:second-of-type {
-    background-color: #F4CE14;
-    flex: 1;
- }
+.Main article:first-of-type {
+  background-color: #495E57;
+  display: flex;
+  
+  align-items: space-between;
+  padding: 2rem;
+
+}
+.Main article:first-of-type section {
+   padding-right: 8rem;
+   padding-left: 8rem;
+}
+
+.Main article:first-of-type section:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+  padding-left:10rem;
+}
+.Main article:first-of-type h1 {
+  color: #F4CE14;
+  font-family: 'Markazi Text', serif;
+  font-size: 4rem;
+  margin: 0;
+  line-height: 1;
+}
+
+.Main article:first-of-type h2 {
+  color: #EDEFEE;
+  font-family: 'Karla', sans-serif;
+  font-size: 2rem;
+  margin: 0.5rem 0 0 0;
+  align-self: flex-start;
+}
+
+.Main article:first-of-type p {
+  color: #EDEFEE;
+  font-size: 1.2rem;
+  margin: 1rem 0 0 0;
+  text-align: left;
+  padding-right: 4rem;
+}
+.Main article:first-of-type button {
+  background-color: #F4CE14;
+  color: #333333;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+.Main article:first-of-type img{
+  display: block;
+  width: 20rem;
+  height: 20rem;
+  position: absolute;
+  align-items: center;
+  margin-top:2rem;
+  border-radius: 1rem;
+
+}
 
 .Footer {
-  grid-column: 1/span 12;
-  grid-row: 17/span 4;
+  grid-column: 1 / span 12;
+  grid-row: 3 / span 1;
   padding: 1rem;
   background-color: #222;
   display: flex;

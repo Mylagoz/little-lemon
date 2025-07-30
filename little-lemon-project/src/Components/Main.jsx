@@ -1,17 +1,22 @@
-
+import restauranfood from '../assets/restauranfood.jpg';
  function Main({ className }) {
     return (
         <main className={className}>
             <article>
                 <section>
-                    <h2>Our Menu</h2>
-                    <p>Explore our delicious offerings!</p>
+                    <h1>Little Lemon</h1>
+                    <h2>Chicago</h2>
+                    <p>Family owned Mediterranean restaurant , 
+                    focused on traditional recipes with a modern twist</p>
+                    <button>Reserve a Table</button>
+                </section>
+                <section>
+                  <img src={restauranfood} alt="Cooker with a food presentation" />
                 </section>
             </article>
             <article>
                  <section>
-                    <h2>Special Offers</h2>
-                    <p>Check out our latest deals and promotions!</p>
+                   
                  </section>
             </article>
             
