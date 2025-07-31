@@ -20,27 +20,33 @@ import LemonDessert from '../assets/lemon-dessert.jpg';
             <div className="specials-cards">
               <article>
                 <img src={Bruchetta} alt="Bruchetta" />
-                <h3>Bruchetta <span>$5.99</span></h3>
-                <p>Toasted rustic bread rubbed with garlic and drizzled with olive oil. 
+                <div className="specials-card-description">
+                 <h3>BRUCHETTA <span>$5.99</span></h3>
+                 <p>Toasted rustic bread rubbed with garlic and drizzled with olive oil. 
                    Topped with ripe tomatoes, fresh basil, and a splash of balsamic vinegar. 
                    A simple, bold Italian appetizer bursting with flavor.</p>
-                <a href="#">order a delivery</a>
+                 <a href="#">order a delivery</a>
+                </div>
               </article>
               <article>
                 <img src={GreekSalad} alt="Greek Salad" />
-                <h3>GREEK SALAD <span>$12.99</span></h3>
-                <p>Crisp cucumbers, ripe tomatoes, and Kalamata olives mingle with creamy feta for a burst of fresh flavor.
+                <div className="specials-card-description">
+                 <h3>GREEK SALAD <span>$12.99</span></h3>
+                 <p>Crisp cucumbers, ripe tomatoes, and Kalamata olives mingle with creamy feta for a burst of fresh flavor.
                   Tossed in a zesty house-made vinaigrette with oregano and olive oil. 
                   A refreshing, wholesome taste of Greece in every bite.</p>
-                <a href="#">order a delivery</a>
+                 <a href="#">order a delivery</a>
+                </div>
               </article>
               <article>
                 <img src={LemonDessert} alt="Lemon Dessert" />
-                <h3>Lemon Dessert <span>$12.99</span></h3>
-                <p>Light and fluffy layers infused with fresh lemon zest and juice.
+                <div className="specials-card-description">
+                 <h3>LEMON DESSERT <span>$12.99</span></h3>
+                 <p>Light and fluffy layers infused with fresh lemon zest and juice.
                     Frosted with tangy lemon cream cheese icing for a perfect sweet-tart balance.
                     A bright, citrusy finish that melts in your mouth with every bite.</p>
                 <a href="#">order a delivery</a>
+                </div>
               </article>
          
             </div>
