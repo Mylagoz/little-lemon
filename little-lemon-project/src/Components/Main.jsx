@@ -2,21 +2,32 @@ import Food from '../assets/restauranfood.jpg';
 import Bruchetta from '../assets/bruchetta.svg';
 import GreekSalad from '../assets/greek-salad.jpg';
 import LemonDessert from '../assets/lemon-dessert.jpg';
- function Main({ className }) {
+import useWindowSize from '../hooks/useWindowSize'; 
+
+function Main({ className }) {
+    const width = useWindowSize();
+    const isMobile = width <= 768;
+
+   
+   
     return (
         <main className={className}>
           <section className="hero">
             <div className="hero-text">
               <h1>Little Lemon</h1>
               <h2>Chicago</h2>
-              <p>Fresh Mediterranean flavors served with warmth and flair.</p>
+              <p>Fresh Mediterranean flavors served with warmth and flair.
+                 A cozy atmosphere and creative cocktails make it a local favorite.
+                  Little Lemon adds a vibrant twist to classic dishes.</p>
               <button>Reserve a Table</button>
             </div>
-            <img src={Food} alt="Restaurant food" />
+           {!isMobile && <img src={Food} alt="Restaurant food" />}
           </section>
           <section className="specials">
+            <div className="specials-header">
             <h2>This week specials !</h2>
             <button className="online-menu-btn">Online Menu</button>
+            </div>
             <div className="specials-cards">
               <article>
                 <img src={Bruchetta} alt="Bruchetta" />
@@ -34,7 +45,7 @@ import LemonDessert from '../assets/lemon-dessert.jpg';
                  <h3>GREEK SALAD <span>$12.99</span></h3>
                  <p>Crisp cucumbers, ripe tomatoes, and Kalamata olives mingle with creamy feta for a burst of fresh flavor.
                   Tossed in a zesty house-made vinaigrette with oregano and olive oil. 
-                  A refreshing, wholesome taste of Greece in every bite.</p>
+                  </p>
                  <a href="#">order a delivery</a>
                 </div>
               </article>
@@ -63,7 +74,9 @@ import LemonDessert from '../assets/lemon-dessert.jpg';
             <div className="about-text">
               <h2>Little Lemon</h2>
               <h3>Chicago</h3>
-              <p>Fresh Mediterranean flavors served with warmth and flair. A cozy atmosphere and creative cocktails make it a local favorite. Little Lemon adds a vibrant twist to classic dishes.</p>
+              <p>Fresh Mediterranean flavors served with warmth and flair.
+                 A cozy atmosphere and creative cocktails make it a local favorite.
+                  Little Lemon adds a vibrant twist to classic dishes.</p>
             </div>
             <div className="about-images">
               {/* Placeholders for images */}
