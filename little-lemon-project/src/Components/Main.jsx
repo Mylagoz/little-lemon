@@ -1,14 +1,24 @@
 import Food from '../assets/restauranfood.jpg';
-import Bruchetta from '../assets/bruchetta.svg';
-import GreekSalad from '../assets/greek-salad.jpg';
-import LemonDessert from '../assets/lemon-dessert.jpg';
-import useWindowSize from '../hooks/useWindowSize'; 
+import Button from './Button.jsx';
+import Specials from './Specials.jsx';
+import About from './About.jsx';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 function Main({ className }) {
-    const width = useWindowSize();
-    const isMobile = width <= 768;
+  const location = useLocation();
 
-   
+  useEffect(() => {
+    if (location.state?.scrollToAbout) {
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
    
     return (
         <main className={className}>
@@ -19,49 +29,11 @@ function Main({ className }) {
               <p>Fresh Mediterranean flavors served with warmth and flair.
                  A cozy atmosphere and creative cocktails make it a local favorite.
                   Little Lemon adds a vibrant twist to classic dishes.</p>
-              <button>Reserve a Table</button>
+              <Button className="btn" path="/reservation">Reserve a Table</Button>
             </div>
-           {!isMobile && <img src={Food} alt="Restaurant food" />}
+            <img src={Food} alt="Restaurant food" />
           </section>
-          <section className="specials">
-            <div className="specials-header">
-            <h2>This week specials !</h2>
-            <button className="online-menu-btn">Online Menu</button>
-            </div>
-            <div className="specials-cards">
-              <article>
-                <img src={Bruchetta} alt="Bruchetta" />
-                <div className="specials-card-description">
-                 <h3>BRUCHETTA <span>$5.99</span></h3>
-                 <p>Toasted rustic bread rubbed with garlic and drizzled with olive oil. 
-                   Topped with ripe tomatoes, fresh basil, and a splash of balsamic vinegar. 
-                   A simple, bold Italian appetizer bursting with flavor.</p>
-                 <a href="#">order a delivery</a>
-                </div>
-              </article>
-              <article>
-                <img src={GreekSalad} alt="Greek Salad" />
-                <div className="specials-card-description">
-                 <h3>GREEK SALAD <span>$12.99</span></h3>
-                 <p>Crisp cucumbers, ripe tomatoes, and Kalamata olives mingle with creamy feta for a burst of fresh flavor.
-                  Tossed in a zesty house-made vinaigrette with oregano and olive oil. 
-                  </p>
-                 <a href="#">order a delivery</a>
-                </div>
-              </article>
-              <article>
-                <img src={LemonDessert} alt="Lemon Dessert" />
-                <div className="specials-card-description">
-                 <h3>LEMON DESSERT <span>$12.99</span></h3>
-                 <p>Light and fluffy layers infused with fresh lemon zest and juice.
-                    Frosted with tangy lemon cream cheese icing for a perfect sweet-tart balance.
-                    A bright, citrusy finish that melts in your mouth with every bite.</p>
-                <a href="#">order a delivery</a>
-                </div>
-              </article>
-         
-            </div>
-          </section>
+          <Specials />
           <section className="ratings">
             <h2>Rate Us</h2>
             <div className="ratings-cards">
@@ -70,21 +42,7 @@ function Main({ className }) {
               {/* ... */}
             </div>
           </section>
-          <section className="about">
-            <div className="about-text">
-              <h2>Little Lemon</h2>
-              <h3>Chicago</h3>
-              <p>Fresh Mediterranean flavors served with warmth and flair.
-                 A cozy atmosphere and creative cocktails make it a local favorite.
-                  Little Lemon adds a vibrant twist to classic dishes.</p>
-            </div>
-            <div className="about-images">
-              {/* Placeholders for images */}
-              <div className="about-img about-img1"></div>
-              <div className="about-img about-img2"></div>
-              <div className="about-img about-img3"></div>
-            </div>
-          </section>
+          <About className="about" id="about" />
         </main>
     );
     

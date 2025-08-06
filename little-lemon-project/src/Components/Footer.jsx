@@ -35,9 +35,15 @@ function Footer({ className }) {
       <div className="footer-col">
         <h5>Contact</h5>
         <ul>
-          <li><a href="#address">Address</a></li>
-          <li><a href="#phone">Phone</a></li>
-          <li><a href="#email">Email</a></li>
+          <li><a 
+               href="https://www.google.com/maps/place/?=1234 N Lemon Ave , Chicago, IL 60614 "
+                target="_blank" 
+                rel="noopener noreferrer"
+                >
+                1234 N Lemon Ave, Chicago, IL 60614
+                </a></li>
+          <li><a href="tel:+13125551234">(312) 555-1234</a></li>
+          <li><a href="mailto:info@littlelemon.com">info@littlelemon.com</a></li>
         </ul>
       </div>
     </footer>
