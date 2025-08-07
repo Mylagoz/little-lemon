@@ -1,5 +1,5 @@
 import FooterLogo from '../assets/1.png';
-
+import '../Styles/Footer.css';
 
 
 function Footer({ className }) {

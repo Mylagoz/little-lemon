@@ -1,0 +1,20 @@
+.Header {
+  grid-row: 1;
+  grid-column: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 3rem 1rem 3rem;
+  position:sticky;
+  top:0;
+  z-index: 1000;
+  gap: 2rem;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: #ffffff69;
+}
+.Header img {
+  width: 20rem;
+  height: auto;
+}

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import MarioAdrianA from '../assets/Mario and Adrian A.webp';
 import Restaurant from '../assets/restaurant.jpg';
 import MarioAdrianB from '../assets/Mario and Adrian b.webp';
+import Adrian from '../assets/Adrian.webp';
+import '../Styles/About.css';
 
 
 
@@ -16,7 +18,8 @@ function About ({ className }) {
     const slides = [
         { src: MarioAdrianA, alt: "Mario and Adrian A" },
         { src: Restaurant, alt: "Restaurant Interior" },
-        { src: MarioAdrianB, alt: "Mario and Adrian B" }
+        { src: MarioAdrianB, alt: "Mario and Adrian B" },
+        { src: Adrian, alt: "Adrian" }
     ];
 
     return (
@@ -30,9 +33,11 @@ function About ({ className }) {
      </article>
     <div className="about-carousel">
        <Carousel  activeIndex={currentSlide} interval={3000} onSelect={handleSelect}>
-           {slides.map((slide, index) => (
-               <Carousel.Item key={index}>
-                   <img src={slide.src} alt={slide.alt} className="d-block w-100 " loading="lazy"/>
+           {slides.map((slide) => (
+               <Carousel.Item key={slide.src} className="about-carousel-item">
+                   <div className="about-carousel-ratio">
+                       <img src={slide.src} alt={slide.alt}  loading="lazy"/>
+                   </div>
                </Carousel.Item>
            ))}
        </Carousel>

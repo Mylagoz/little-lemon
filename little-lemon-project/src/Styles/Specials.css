@@ -1,0 +1,94 @@
+.specials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.specials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  padding: 1rem 3rem;
+}
+
+.specials-header h2 {
+  font-family: 'Karla', sans-serif;
+  color: #333333;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.specials-cards {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.specials-cards article {
+  background: #EDEFEE;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  max-width: 350px;
+  color: #333333;
+  min-height: 400px;
+  margin-bottom: 1rem;
+  transition: scale 0.3s ease;
+}
+
+.specials-cards article:hover {
+  scale: 1.05;
+}
+
+.specials-cards article > img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.specials-cards h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+   text-wrap: nowrap;
+   text-align: space-evenly;
+   width: 100%;
+}
+
+.specials-cards span {
+  font-weight: bold;
+  color: #f4ce14;
+  margin-left: 1rem;
+}
+
+.specials-cards p {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  flex: 1;
+}
+
+.specials-cards a {
+  color: #495E57;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
+ 
+}
+
+.specials-card-description {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  padding: 1rem;
+  justify-content: space-between;
+}

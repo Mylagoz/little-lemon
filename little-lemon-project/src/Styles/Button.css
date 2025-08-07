@@ -1,0 +1,26 @@
+.button-ct {
+  background-color: #f4ce14;
+  color: #333333;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  font-weight: 700;
+  border : 0.2rem solid #333333;
+  text-decoration: none;
+  transition: background-color 0.3s ease , color 0.3s ease;
+  }
+
+
+  .button-ct:hover {
+  background: #EE9972;
+  color: #fff;
+  
+  }
+
+  .button-ct:active{
+  background: #495E57;
+  color: #fff;
+  
+  }

@@ -1,0 +1,12 @@
+.Footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #495E57;
+}
+
+.footer-col {
+  flex: 1;
+  padding: 1rem;
+  max-width: 80%;
+}

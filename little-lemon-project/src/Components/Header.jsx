@@ -1,6 +1,6 @@
 import Nav from './Nav'
 import Logo from '../assets/Logo.svg'
-
+import '../Styles/Header.css';
 
 
 function Header({ className }) {

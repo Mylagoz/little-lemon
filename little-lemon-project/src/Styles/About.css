@@ -1,0 +1,110 @@
+.about {
+  
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 5rem;
+  gap: 2rem;
+  
+}
+
+.about-content {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column; 
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  
+}
+.about-content h2 {
+
+  color: #333333;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.about-content p {
+  justify-self: center;
+  align-self: start;
+  font-size: 1.5rem;
+  padding: 2rem;
+}
+.about-carousel{
+  width: 100%;
+  max-width: 100%;
+  margin : 0 auto;
+
+}
+
+.about-carousel-ratio {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.about-carousel-ratio img {
+  width: 100%;
+  height: auto;
+  object-fit:cover;
+
+  display: block;
+}
+ 
+.Footer {
+  
+  background: #495E57;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap:-2rem;
+  padding: 2rem 3rem;
+}
+
+.footer-col {
+  flex: 1;
+  margin: 0 1rem;
+  justify-self: center;
+  width: 100%;
+
+  
+ 
+}
+
+.footer-img {
+  width: 6rem;
+  height: 9rem;
+  margin: 1rem auto;
+}
+
+.footer-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.Footer h5 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  
+}
+
+.Footer ul {
+  list-style: none;
+  padding: 0;
+  
+}
+
+.Footer li {
+  margin-bottom: 0.5rem;
+  
+}
+
+.Footer a {
+  color: #EDEFEE;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
