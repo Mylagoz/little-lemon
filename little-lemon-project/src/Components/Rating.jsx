@@ -1,4 +1,4 @@
-
+import {useEffect} from 'react';
 import  Carousel from 'react-bootstrap/Carousel';
 import '../Styles/Rating.css';
 import Button from './Button.jsx';
@@ -7,7 +7,9 @@ import Button from './Button.jsx';
 function Rating ({className , reviews}) {
 
 
-  
+    useEffect(() => {
+
+    })
 
     const chunkArray = (array, size) => {
         const result = [];
@@ -29,7 +31,7 @@ function Rating ({className , reviews}) {
                    <div className="ratings-cards">
                     {chunk.map((review) => (
                         <div className="rating-card" key={review.name}>
-                            <img src={review.image} alt={review.name} />
+                            <img src={review.image} alt={review.name} key={review.name} />
                             <div className="rc-description">
                                 <h5>{review.name}</h5>
                                 <p>{review.review}</p>

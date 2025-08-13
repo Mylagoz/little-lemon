@@ -1,29 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Markazy+Text:wght@400;700&display=swap');
 
 .Reservation {
   background: #edefee;
   border-radius: 1.5rem;
-  grid-column: 1 / span 12;
-  min-width: 100vw;
+  grid-column: 2 / span 10;
+  max-width: 100vw;
   margin: 2rem auto;
   padding: 2rem 2.5rem;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  font-family: 'Karla', Arial, sans-serif;
-
+  display: flex;
+  flex-direction: column;
+  border: 0.2rem solid #333;
 
 }
 
 .Reservation-form {
   display: flex;
+  max-width: 700px;
+  gap: 1rem;
+  align-content: center;
+  justify-content: center;
   flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
+ 
 }
 
+.Reservation-form div{
+  display: flex;
+  gap :1rem;
+  justify-content: flex-start;
+  align-items: center;
+
+}
 .Reservation h2 {
   text-align: center;
-  color: #495E57;
-  font-size: 2rem;
+  color: #f4ce14;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
+  font-family: 'Markazi Text', sans-serif;
 
 }
 
@@ -32,23 +45,29 @@
   display: block;
   margin: 1rem 0 0.25rem 0;
   font-weight: 700;
-  color: #495E57;
+  color: #333;
   font-size: 1rem;
 }
 
+.Reservation label{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 .Reservation input,
 .Reservation select,
 .Reservation textarea {
-  width: 30%;
+  width: 100%;
   padding: 0.6rem 0.8rem;
-  border: 1px solid #c7cbcf;
+  border: 1px solid #333;
   border-radius: 0.5rem;
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  background: #fff;
+  background: #495E57;
   font-family: inherit;
   box-sizing: border-box;
   transition: border-color 0.2s;
+  color:#fff; 
 }
 
 .Reservation input:focus,
@@ -58,17 +77,18 @@
   outline: none;
 }
 
-
-.Reservation select {
-  cursor: pointer;
+.Reservation input::placeholder,
+.Reservation select::placeholder,
+.Reservation textarea::placeholder {
+  color: #fff;
 }
 
-
 .Reservation .button-ct {
-  width: 100%;
+  width: 30%;
+  align-self: center;
   background: #f4ce14;
-  color: #495E57;
-  border: none;
+  color: #333;
+  border: 3px solid #333;
   border-radius: 0.5rem;
   padding: 0.8rem 0;
   font-size: 1.1rem;
@@ -84,7 +104,28 @@
   cursor: not-allowed;
 }
 
-/* Responsive */
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 1.5px #d32f2f33;
+}
+
+input:focus:invalid,
+select:focus:invalid,
+textarea:focus:invalid {
+  border-color: #d32f2f;
+  outline: 1.5px solid #d32f2f;
+}
+
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: #d32f2f;
+}
+
+
 @media (max-width: 600px) {
   .Reservation {
     padding: 1rem;

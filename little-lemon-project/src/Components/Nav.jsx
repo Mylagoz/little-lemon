@@ -36,7 +36,7 @@ function Nav({ className }) {
             <li><a href="#about" onClick={e => {e.preventDefault(); goToAboutSection();}}>About</a></li>
             <li><Link to="/menu">Menu</Link></li>
             <li><Link to="/reservation">Reservation</Link></li>
-            <li><Link to="/login">Login</Link></li>
+        
         
         
 

@@ -7,6 +7,7 @@ function Dropdown({ options, value, onChange, ariaLabel, field }) {
             onChange={e => onChange(field, e.target.value)}
             aria-label={ariaLabel}
         >
+            {ariaLabel && <option value="" disabled>{ariaLabel}</option>}
             {options.map(option => (
                 <option key={option} value={option}>
                     {option}

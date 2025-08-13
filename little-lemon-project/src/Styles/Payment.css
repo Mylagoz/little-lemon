@@ -1,0 +1,132 @@
+.Payment {
+  background: #edefee;
+  border-radius: 1.5rem;
+    grid-column: 2 / span 10;
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  font-family: 'Karla', Arial, sans-serif;
+  border: 0.2rem solid #333;
+}
+
+
+.Payment h2, .Payment h3 {
+  text-align: center;
+  color: #333;
+  font-family: 'Karla', Arial, sans-serif;
+  margin-bottom: 1.2rem;
+}
+
+.Payment ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.Payment ul li {
+  margin-bottom: 0.5rem;
+  color: #495E57;
+  font-size: 1rem;
+}
+
+.payment-form {
+  margin-top: 2rem;
+}
+
+.payment-form label {
+  display: block;
+  margin: 1rem 0 0.25rem 0;
+  font-weight: 700;
+  color: #495E57;
+  font-size: 1rem;
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #c7cbcf;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  background: #495E57;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.payment-form input::placeholder {
+  color: #c7c7c7;
+}
+
+.payment-form input:focus {
+  border-color: #f4ce14;
+  outline: none;
+}
+
+.payment-form .button-ct {
+  width: 100%;
+  background: #f4ce14;
+  color: #333;
+  border: 0.2rem solid #333;
+  border-radius: 0.5rem;
+  padding: 0.8rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.payment-form .button-ct:disabled {
+  background: #c7cbcf;
+  color: #888;
+  cursor: not-allowed;
+}
+
+
+.payment-form .error {
+  color: #d32f2f;
+  margin-top: 0.5rem;
+  font-size: 0.98rem;
+}
+
+
+.payment-form .row {
+  display: flex;
+  gap: 1rem;
+}
+
+.payment-form .row > div {
+  flex: 1;
+}
+
+
+@media (max-width: 600px) {
+  .Payment {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .Payment h2, .Payment h3 {
+    font-size: 1.2rem;
+  }
+  .payment-form .row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.payment-dialog {
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  text-align: center;
+  max-width: 350px;
+  color: #495E57;
+  background: #fff;
+}
+
+.payment-dialog::backdrop {
+  background: rgba(0,0,0,0.45);
+}

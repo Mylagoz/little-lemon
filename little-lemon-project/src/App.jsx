@@ -121,7 +121,7 @@ const handleAddReview =(newReview) =>{
             availableTimes={availableTimes}
             onSubmit={handleReservationSubmit}
            />} />
-           <Route path="/reservation/payment" element={<Payment className="Payment" reservation={currentReservation} />} />
+           <Route path="/reservation/payment" element={<Payment className="Payment" reservation={currentReservation} onSubmit={setForm} />} />
           <Route path="/menu" element={<Menu className="Menu" />} />
           <Route path="/about" element={<About className="about" id="about" />} />
           <Route path="/specials" element={<Specials className="specials" />} />
