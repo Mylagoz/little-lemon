@@ -1,0 +1,96 @@
+
+.Reservation {
+  background: #edefee;
+  border-radius: 1.5rem;
+  grid-column: 1 / span 12;
+  min-width: 100vw;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  font-family: 'Karla', Arial, sans-serif;
+
+
+}
+
+.Reservation-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.Reservation h2 {
+  text-align: center;
+  color: #495E57;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+
+}
+
+
+.Reservation label {
+  display: block;
+  margin: 1rem 0 0.25rem 0;
+  font-weight: 700;
+  color: #495E57;
+  font-size: 1rem;
+}
+
+.Reservation input,
+.Reservation select,
+.Reservation textarea {
+  width: 30%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #c7cbcf;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  background: #fff;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.Reservation input:focus,
+.Reservation select:focus,
+.Reservation textarea:focus {
+  border-color: #f4ce14;
+  outline: none;
+}
+
+
+.Reservation select {
+  cursor: pointer;
+}
+
+
+.Reservation .button-ct {
+  width: 100%;
+  background: #f4ce14;
+  color: #495E57;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.Reservation .button-ct:disabled {
+  background: #c7cbcf;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .Reservation {
+    padding: 1rem;
+    max-width: 98vw;
+  }
+  .Reservation h2 {
+    font-size: 1.4rem;
+  }
+}

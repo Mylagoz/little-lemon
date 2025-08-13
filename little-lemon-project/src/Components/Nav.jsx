@@ -3,7 +3,6 @@ import { useState } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 import HamburguerOpen from '../assets/menu-open.png';
 import HamburguerClose from '../assets/menu-close.png';
-import Basket from '../assets/Basket.svg';
 import '../Styles/Nav.css';
 
 function Nav({ className }) {
@@ -31,15 +30,16 @@ function Nav({ className }) {
     }
   }
   const navLinks = (
-    <> 
-          <ul>
+    <>
+         
             <li><Link to="/" onClick={scrollToHome}>Home</Link></li>
             <li><a href="#about" onClick={e => {e.preventDefault(); goToAboutSection();}}>About</a></li>
             <li><Link to="/menu">Menu</Link></li>
             <li><Link to="/reservation">Reservation</Link></li>
             <li><Link to="/login">Login</Link></li>
-          </ul>
-        <Link to="/order"><img src={Basket} alt="Order Basket" /></Link>
+        
+        
+
     </>
   );
 

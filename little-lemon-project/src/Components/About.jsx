@@ -1,4 +1,4 @@
-import {Carousel} from 'react-bootstrap';
+import Carousel from 'react-bootstrap/Carousel';
 import { useState } from 'react';
 import MarioAdrianA from '../assets/Mario and Adrian A.webp';
 import Restaurant from '../assets/restaurant.jpg';
@@ -32,15 +32,15 @@ function About ({ className }) {
         </p>
      </article>
     <div className="about-carousel">
-       <Carousel  activeIndex={currentSlide} interval={3000} onSelect={handleSelect}>
-           {slides.map((slide) => (
-               <Carousel.Item key={slide.src} className="about-carousel-item">
-                   <div className="about-carousel-ratio">
-                       <img src={slide.src} alt={slide.alt}  loading="lazy"/>
-                   </div>
-               </Carousel.Item>
-           ))}
-       </Carousel>
+      <Carousel activeIndex={currentSlide} interval={3000} onSelect={handleSelect}>
+          {slides.map((slide) => (
+              <Carousel.Item key={slide.src} className="about-carousel-item">
+                  <div className="about-carousel-ratio">
+                      <img src={slide.src} alt={slide.alt}  loading="lazy"/>
+                  </div>
+              </Carousel.Item>
+          ))}
+      </Carousel>
     </div>
      
     </section>

@@ -1,12 +1,26 @@
 .Footer {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items:center;
     background-color: #495E57;
+    padding-bottom: 0;
+}
+.Copyright {
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+}
+.footer-info{
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .footer-col {
   flex: 1;
-  padding: 1rem;
-  max-width: 80%;
+  padding: 0.5rem;
+  max-width: 100%;
+  box-sizing: border-box
+  ;
 }

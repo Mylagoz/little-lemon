@@ -21,9 +21,3 @@
 .Nav ul li a:hover {
   border-bottom-color:  #f4ce14;
 }
-
-.Nav  img {
-  max-width: 2rem;
-  max-height: 2rem;
-  vertical-align: middle;
-}

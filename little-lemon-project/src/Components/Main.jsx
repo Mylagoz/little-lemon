@@ -3,15 +3,16 @@ import Button from './Button.jsx';
 import Specials from './Specials.jsx';
 import About from './About.jsx';
 import Rating from './Rating.jsx';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Bruchetta from '../assets/bruchetta.webp';
 import GreekSalad from '../assets/greek-salad.webp';
 import LemonDessert from '../assets/lemon-dessert.jpg';
 import '../Styles/Main.css';
 
-function Main({ className }) {
+function Main({ className ,reviews}) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state?.scrollToAbout) {
@@ -20,14 +21,14 @@ function Main({ className }) {
         aboutSection.scrollIntoView({ behavior: 'smooth' });
       }
       
-      window.history.replaceState({}, document.title);
+      navigate('/', { state: {} }); 
     }
-  }, [location]);
+  }, [location, navigate]);
 
-    const specials =[
-        {
-            title: "BRUCHETTA",
-            description: "Toasted rustic bread rubbed with garlic and drizzled with olive oil. Topped with ripe tomatoes, fresh basil, and a splash of balsamic vinegar. A simple, bold Italian appetizer bursting with flavor.",
+  const specials = [
+    {
+      title: "BRUCHETTA",
+      description: "Toasted rustic bread rubbed with garlic and drizzled with olive oil. Topped with ripe tomatoes, fresh basil, and a splash of balsamic vinegar. A simple, bold Italian appetizer bursting with flavor.",
             price: 10.99,
             img:{ src:Bruchetta, alt: "Bruchetta" }
         },
@@ -60,7 +61,7 @@ function Main({ className }) {
             <img src={Food} alt="Restaurant food" />
           </section>
           <Specials className="specials" dishes={specials} />
-           <Rating className="ratings" />
+           <Rating className="ratings"  reviews={reviews} />
           <About className="about" id="about" />
         </main>
     );

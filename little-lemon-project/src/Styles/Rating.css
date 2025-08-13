@@ -1,52 +1,41 @@
 .ratings {
- display:flex;
- flex-direction: column;
- justify-content: flex-start;
- align-items: center;
- background-color: #EDEFEE;
- padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #EDEFEE;
+  padding: 1rem;
+  gap:2rem;
 }
+
 .ratings-header {
-    margin-top:1rem;
+  margin: 1rem 0;
 }
 
 .ratings-carousel {
-    display: flex;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    justify-content: center;
-
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .ratings-cards {
   display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
-  flex-wrap: nowrap;
+      
+  gap: 1rem;
   justify-content: center;
-  max-width: 100%;
-  overflow: hidden;
-  padding: 1rem;
 }
-.rating-card{
+
+.rating-card {
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  width: 350px;
-  min-width: 350px;
-  max-width: 350px;
-  height: 120px;
-  margin: 0 0.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
   padding: 1rem;
+  width: 600px;         
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 .rating-card img {
-
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -56,17 +45,17 @@
   background: #eee;
 }
 
+
 .rating-card-description {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+
   flex: 1;
   min-width: 0;
 }
 
 .rating-card-description h5 {
   margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #222;
   white-space: nowrap;
@@ -76,11 +65,7 @@
 
 .rating-card-description p {
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   color: #444;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  
-  -webkit-box-orient: vertical;
+  line-height: 1.35;
 }

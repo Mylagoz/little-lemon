@@ -5,10 +5,10 @@ import '../Styles/Footer.css';
 function Footer({ className }) {
   return (
     <footer className={className}>
+      <div className="footer-info">
       <div className="footer-col">
-     
-         <div className="footer-img">
-            <img src={FooterLogo} alt="Little Lemon Logo"  />
+        <div className="footer-img">
+          <img src={FooterLogo} alt="Little Lemon Logo"  />
         </div>
       </div>
       <div className="footer-col">
@@ -46,6 +46,8 @@ function Footer({ className }) {
           <li><a href="mailto:info@littlelemon.com">info@littlelemon.com</a></li>
         </ul>
       </div>
+      </div>
+      <p className="Copyright">© 2025 Little Lemon. All rights reserved.</p>
     </footer>
   )
 }

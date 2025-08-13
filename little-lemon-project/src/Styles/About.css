@@ -6,6 +6,7 @@
   align-items: flex-start;
   padding: 2rem 5rem;
   gap: 2rem;
+
   
 }
 
@@ -32,26 +33,38 @@
   font-size: 1.5rem;
   padding: 2rem;
 }
-.about-carousel{
+.about-carousel {
   width: 100%;
-  max-width: 100%;
-  margin : 0 auto;
-
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.about-carousel-ratio {
-  position: relative;
+.about .carousel {
   width: 100%;
+  max-width: 700px;
   aspect-ratio: 16/9;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.carousel-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
   overflow: hidden;
 }
 
-.about-carousel-ratio img {
-  width: 100%;
-  height: auto;
-  object-fit:cover;
 
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+  border-radius: 1rem;
 }
  
 .Footer {
