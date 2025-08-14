@@ -1,4 +1,4 @@
-import {Routes , Route} from 'react-router-dom'
+import {Routes , Route } from 'react-router-dom'
 import Reservation from './Components/Reservation';
 import { useState , useReducer} from 'react';
 import RateUs from './Components/RateUs'
@@ -10,6 +10,7 @@ import Header from './Components/Header'
 import Main from './Components/Main'
 import Footer from './Components/Footer'
 import './App.css'
+
 
 const initialTimes =["17:00", "18:00", "19:00", "20:00", "21:00","22:00"]
 const updateTimes =(state, action)=>{
@@ -107,6 +108,7 @@ const handleAddReview =(newReview) =>{
 
   return (
     <div className="App">
+  
         <Header className="Header" />
         <Routes>
           <Route path="/" element={<Main className="Main" reviews={reviews} />} />

@@ -173,6 +173,35 @@
     text-align: center;
     gap:0.5rem;
   }
+  .Reservation{
+    width: 100%;
+    border:1px solid #333;
+    
+  }
+  .Reservation h2{
+    font-size: 3rem;
+  }
+  .Reservation .button-ct{
+    width: 70%;
+  }
+  .Reservation-form div{
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .Reservation-form div:nth-of-type(3) {
+    flex-direction: row;
+  }
+  .Reservation-form .input-field{
+    width: 100%;
+  };
+  .specials-header {
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+  }
   .specials-cards,
   .ratings-cards {
     flex-direction: column;
@@ -200,8 +229,12 @@
     width: 80px;
     height: 80px;
   }
-  .Footer{
-      flex-wrap: wrap;
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
   }
   .footer-col {
     margin: 1rem 0;

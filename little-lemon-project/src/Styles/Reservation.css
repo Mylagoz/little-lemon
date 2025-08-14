@@ -35,7 +35,7 @@
   text-align: center;
   color: #f4ce14;
   font-size: 3rem;
-  margin-bottom: 1.5rem;
+
   font-family: 'Markazi Text', sans-serif;
 
 }
@@ -43,7 +43,7 @@
 
 .Reservation label {
   display: block;
-  margin: 1rem 0 0.25rem 0;
+
   font-weight: 700;
   color: #333;
   font-size: 1rem;
@@ -59,7 +59,7 @@
 .Reservation textarea {
   width: 100%;
   padding: 0.6rem 0.8rem;
-  border: 1px solid #333;
+  border: 1px solid #c7cbcf;
   border-radius: 0.5rem;
   font-size: 1rem;
   margin-bottom: 0.5rem;

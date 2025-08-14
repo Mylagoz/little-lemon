@@ -1,27 +1,59 @@
-import Dropdown from './Dropdown.jsx'
-import { useNavigate } from 'react-router-dom'
+
+import Dropdown from './Dropdown.jsx';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import "../Styles/Reservation.css";
+import { validateField, validateAll as coreValidateAll } from '../validation/reservationValidation.js';
 
-
-
-function Reservation ({ className, onChange, form, availableTimes, onSubmit }) {
+function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
   const specialOccasionOptions = ["birthday", "anniversary", "wedding"];
   const seatPreferenceOptions = ["indoor", "outdoor", "window"];
   const navigate = useNavigate();
 
-  
-  const emailPattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
-  const phonePattern = "^[0-9\\-\\+\\s\\(\\)]{7,}$";
+  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState({});
+  const [showSummary, setShowSummary] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+
+
+  const validate = validateField;
+
+  const handleBlur = (field) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const error = validate(field, form[field]);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
+
+  const handleChange = (field, value) => {
+    onChange(field, value);
+    if (touched[field]) {
+      const error = validate(field, value);
+      setErrors((prev) => ({ ...prev, [field]: error }));
+    }
+  };
+
+  const validateAll = () => {
+    const newErrors = coreValidateAll(form);
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleLocalSubmit = (e) => {
     e.preventDefault();
-    
+    setSubmitAttempted(true);
+    const valid = validateAll();
+    if (!valid) {
+      setTouched((prev) => ({ ...prev, name: true, lastName: true, email: true, phone: true, date: true, guests: true, time: true, specialOccasion: true, seatPreference: true }));
+      setShowSummary(true);
+      return;
+    }
     const reservation = {
       ...form,
       guests: Number(form.guests),
       pricePerGuest: 25,
       subtotal: Number(form.guests || 0) * 25,
-      taxRate: 0.1
+      taxRate: 0.1,
     };
     reservation.tax = +(reservation.subtotal * reservation.taxRate).toFixed(2);
     reservation.total = +(reservation.subtotal + reservation.tax).toFixed(2);
@@ -29,159 +61,182 @@ function Reservation ({ className, onChange, form, availableTimes, onSubmit }) {
     navigate('/reservation/payment');
   };
 
-
-return (
+  return (
     <section className={className}>
-
-  <h2>Reserve a Table</h2>
-         <form onSubmit={handleLocalSubmit} className={`${className}-form`} noValidate>
-<div>
-  <label htmlFor="name">
-    Name*
-   <input
-     type="text"
-     id="name"
-     placeholder="Enter your name"
-     value={form.name}
-     onChange={e => onChange('name', e.target.value)}
-     required
-     minLength={2}
-     maxLength={30}
-   />
-  </label>
-  <label htmlFor="last-name">
-    Last Name*
-   <input
-     type="text"
-     id="last-name"
-     placeholder="Enter your last name"
-     value={form.lastName}
-     onChange={e => onChange('lastName', e.target.value)}
-     required
-     minLength={2}
-     maxLength={30}
-   />
-  </label>
-  </div>
-  <div>
-  <label htmlFor="email">
-    Email*
-   <input
-     type="email"
-     id="email"
-     placeholder="Enter your email"
-     value={form.email}
-     onChange={e => onChange('email', e.target.value)}
-     required
-     pattern={emailPattern}
-     autoComplete="email"
-   />
-  </label>
-  <label htmlFor="phone">
-    Phone
-   <input
-     type="tel"
-     id="phone"
-     placeholder="Phone number"
-     value={form.phone}
-     onChange={e => onChange('phone', e.target.value)}
-     required
-     pattern={phonePattern}
-     minLength={7}
-     maxLength={20}
-     autoComplete="tel"
-   />
-  </label>
-  </div>
-  <div>
-  <label htmlFor="date">
-    Choose Date*
-   <input
-     type="date"
-     id="date"
-     value={form.date}
-     onChange={e => onChange('date', e.target.value)}
-     required
-     min={new Date().toISOString().split('T')[0]}
-   />
-  </label>
-  <label htmlFor="guests">
-    Number of Guests*
-  <input
-    type="number"
-    id="guests"
-    placeholder="1"
-    min="1"
-    max="10"
-    value={form.guests}
-    onChange={e => onChange('guests', e.target.value)}
-    required
-  />
-  </label>
-  </div>
-  <div>
-  <label htmlFor="time">
-    Choose Time*
-  <Dropdown
-    
-    options={availableTimes}
-    value={form.time}
-    ariaLabel="Choose Time"
-    field="time"
-    onChange={onChange}
-  />
-  </label>
-  <label htmlFor="special-occasion">
-    Special Occasion*
-  <Dropdown
-    options={specialOccasionOptions}
-    value={form.specialOccasion}
-    ariaLabel="Special Occasion"
-    field="specialOccasion"
-    onChange={onChange}
-  />
-  </label>
-  <label htmlFor="seat-preference">
-    Seat Preference*
-  <Dropdown
-    options={seatPreferenceOptions}
-    value={form.seatPreference}
-    ariaLabel="Seat Preference"
-    field="seatPreference"
-    onChange={onChange}
-  />
-  </label>
-  </div>
-  <label htmlFor="comments">
-    Additional Comments
-  <textarea
-    id="comments"
-    placeholder="Enter any additional comments"
-    value={form.comments}
-    onChange={e => onChange('comments', e.target.value)}
-    maxLength={200}
-  ></textarea>
-  </label>
-  <button
-    type="submit"
-    className="button-ct"
-    disabled={
-      !form.name.trim() ||
-      !form.lastName.trim() ||
-      !form.email.trim() ||
-      !form.phone ||
-      !form.date ||
-      !form.guests ||
-      !form.time
-    }
-  >
-    Continue
-  </button>
-</form>
-
+      <h2>Reserve a Table</h2>
+      <form onSubmit={handleLocalSubmit} className={`${className}-form`} noValidate aria-describedby={showSummary && Object.keys(errors).length ? 'reservation-errors' : undefined}>
+        {showSummary && submitAttempted && Object.keys(errors).length > 0 && (
+          <div id="reservation-errors" role="alert" className="error-summary" aria-live="assertive">
+            <p><strong>Please fix the following {Object.keys(errors).length} field{Object.keys(errors).length>1?'s':''}:</strong></p>
+            <ul>
+              {Object.entries(errors).map(([field,msg]) => (
+                <li key={field}><a href={`#${field}`}>{msg}</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div>
+          <label htmlFor="name" className="input-field">
+            Name*
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter name"
+              value={form.name}
+              onChange={e => handleChange('name', e.target.value)}
+              onBlur={() => handleBlur('name')}
+              required
+              minLength={2}
+              maxLength={30}
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name? 'error-name': undefined}
+            />
+            {touched.name && errors.name && <span id="error-name" className="error-message">{errors.name}</span>}
+          </label>
+          <label htmlFor="last-name" className="input-field">
+            Last Name*
+            <input
+              type="text"
+              id="last-name"
+              placeholder="Enter last name"
+              value={form.lastName}
+              onChange={e => handleChange('lastName', e.target.value)}
+              onBlur={() => handleBlur('lastName')}
+              required
+              minLength={2}
+              maxLength={30}
+              aria-invalid={!!errors.lastName}
+              aria-describedby={errors.lastName? 'error-lastName': undefined}
+            />
+            {touched.lastName && errors.lastName && <span id="error-lastName" className="error-message">{errors.lastName}</span>}
+          </label>
+        </div>
+        <div>
+          <label htmlFor="email" className="input-field">
+            Email*
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={form.email}
+              onChange={e => handleChange('email', e.target.value)}
+              onBlur={() => handleBlur('email')}
+              required
+              autoComplete="email"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email? 'error-email': undefined}
+            />
+            {touched.email && errors.email && <span id="error-email" className="error-message">{errors.email}</span>}
+          </label>
+          <label htmlFor="phone" className="input-field">
+            Phone*
+            <input
+              type="tel"
+              id="phone"
+              placeholder="Phone"
+              value={form.phone}
+              onChange={e => handleChange('phone', e.target.value)}
+              onBlur={() => handleBlur('phone')}
+              required
+              minLength={7}
+              maxLength={20}
+              autoComplete="tel"
+              aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone? 'error-phone': undefined}
+            />
+            {touched.phone && errors.phone && <span id="error-phone" className="error-message">{errors.phone}</span>}
+          </label>
+        </div>
+        <div>
+          <label htmlFor="date">
+            Choose Date*
+            <input
+              type="date"
+              id="date"
+              value={form.date}
+              onChange={e => handleChange('date', e.target.value)}
+              onBlur={() => handleBlur('date')}
+              required
+              min={new Date().toISOString().split('T')[0]}
+              aria-invalid={!!errors.date}
+              aria-describedby={errors.date? 'error-date': undefined}
+            />
+            {touched.date && errors.date && <span id="error-date" className="error-message">{errors.date}</span>}
+          </label>
+          <label htmlFor="guests">
+            Guests*
+            <input
+              type="number"
+              id="guests"
+              placeholder="1"
+              min="1"
+              max="10"
+              value={form.guests}
+              onChange={e => handleChange('guests', e.target.value)}
+              onBlur={() => handleBlur('guests')}
+              required
+              aria-invalid={!!errors.guests}
+              aria-describedby={errors.guests? 'error-guests': undefined}
+            />
+            {touched.guests && errors.guests && <span id="error-guests" className="error-message">{errors.guests}</span>}
+          </label>
+        </div>
+        <div>
+          <label htmlFor="time">
+            Choose Time*
+            <Dropdown
+              options={availableTimes}
+              value={form.time}
+              ariaLabel="Choose Time"
+              field="time"
+              onChange={handleChange}
+              onBlur={() => handleBlur('time')}
+            />
+            {touched.time && errors.time && <span id="error-time" className="error-message">{errors.time}</span>}
+          </label>
+          <label htmlFor="special-occasion">
+            Special Occasion*
+            <Dropdown
+              options={specialOccasionOptions}
+              value={form.specialOccasion}
+              ariaLabel="Special Occasion"
+              field="specialOccasion"
+              onChange={handleChange}
+              onBlur={() => handleBlur('specialOccasion')}
+            />
+            {touched.specialOccasion && errors.specialOccasion && <span id="error-specialOccasion" className="error-message">{errors.specialOccasion}</span>}
+          </label>
+          <label htmlFor="seat-preference">
+            Seat Preference*
+            <Dropdown
+              options={seatPreferenceOptions}
+              value={form.seatPreference}
+              ariaLabel="Seat Preference"
+              field="seatPreference"
+              onChange={handleChange}
+              onBlur={() => handleBlur('seatPreference')}
+            />
+            {touched.seatPreference && errors.seatPreference && <span id="error-seatPreference" className="error-message">{errors.seatPreference}</span>}
+          </label>
+        </div>
+        <label htmlFor="comments">
+          Additional Comments
+          <textarea
+            id="comments"
+            placeholder="Enter any additional comments"
+            value={form.comments}
+            onChange={e => handleChange('comments', e.target.value)}
+            maxLength={200}
+          ></textarea>
+        </label>
+         <button
+           type="submit"
+           className="button-ct"
+         >
+          Continue
+        </button>
+      </form>
     </section>
-)
-
-
+  );
 }
 export default Reservation;

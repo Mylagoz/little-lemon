@@ -24,7 +24,10 @@ function Nav({ className }) {
       const aboutSection = document.getElementById('about');
       if (aboutSection) {
         aboutSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+
     } else {
       navigate('/', { state: { scrollToAbout: true } });
     }

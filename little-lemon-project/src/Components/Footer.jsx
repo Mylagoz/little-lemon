@@ -8,7 +8,7 @@ function Footer({ className }) {
       <div className="footer-info">
       <div className="footer-col">
         <div className="footer-img">
-          <img src={FooterLogo} alt="Little Lemon Logo"  />
+          <img src={FooterLogo} alt="Little Lemon Logo2"  />
         </div>
       </div>
       <div className="footer-col">

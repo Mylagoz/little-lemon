@@ -5,41 +5,74 @@ import '../Styles/RateUs.css';
 
 function RateUs({ onAddReview }) {
   const [form, setForm] = useState({ name: '', review: '' });
+  const [touched, setTouched] = useState({});
   const navigate = useNavigate();
-   const isValid = useMemo (()=>{
-    form.name.trim().length > 0 && form.review.trim().length > 0 && form.review.trim().length <= 300;
-   }, [form.name, form.review]);
+  const isValid = useMemo(() => {
+    const nameOk = form.name.trim().length >= 2;
+    const reviewLen = form.review.trim().length;
+    const reviewOk = reviewLen >= 10 && reviewLen <= 300;
+    return nameOk && reviewOk;
+  }, [form.name, form.review]);
+
+  const errors = {
+    name: touched.name && (form.name.trim().length < 2 ? 'Name must be at least 2 characters.' : ''),
+    review: touched.review && (form.review.trim().length < 10 ? 'Review must be at least 10 characters.' : form.review.trim().length > 300 ? 'Review must be 300 characters or less.' : '')
+  };
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isValid) {
-      const newReview = {
-        name: form.name,
-        review: form.review,
-        image: `https://unavatar.io/${form.name.replace(/\s+/g, '')}`
-      };
-      onAddReview(newReview);
-      navigate('/');
-    }
+    setTouched({ name: true, review: true });
+    if (!isValid) return;
+    const newReview = {
+      name: form.name.trim(),
+      review: form.review.trim(),
+      image: `https://unavatar.io/${form.name.replace(/\s+/g, '')}`
+    };
+    onAddReview(newReview);
     setForm({ name: '', review: '' });
+    setTouched({});
+    navigate('/');
   };
 
   return (
     <section className="rate-us">
-     <form  disabled={!isValid} onSubmit={handleSubmit}>
-         <h2>Rate Our Service</h2>
-        <label htmlFor="name">  
-            Your Name:
+      <form onSubmit={handleSubmit} noValidate>
+        <h2>Rate Our Service</h2>
+        <label htmlFor="name">
+          Your Name:
+          <input
+            type="text"
+            id="name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onBlur={() => setTouched(t => ({ ...t, name: true }))}
+            required
+            minLength={2}
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? 'error-name' : undefined}
+            placeholder="Enter your name"
+          />
+          {errors.name && <span id="error-name" className="error-message">{errors.name}</span>}
         </label>
-          <input type="text" id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-        
         <label htmlFor="review">
           Your Review:
+          <textarea
+            id="review"
+            value={form.review}
+            onChange={(e) => setForm({ ...form, review: e.target.value })}
+            onBlur={() => setTouched(t => ({ ...t, review: true }))}
+            required
+            minLength={10}
+            maxLength={300}
+            aria-invalid={!!errors.review}
+            aria-describedby={errors.review ? 'error-review' : undefined}
+            placeholder="Share your experience (10-300 chars)"
+          />
+          <div className="char-count" aria-live="polite">{form.review.trim().length}/300</div>
+          {errors.review && <span id="error-review" className="error-message">{errors.review}</span>}
         </label>
-          <textarea id="review" value={form.review} onChange={(e) => setForm({ ...form, review: e.target.value })} required minLength={10} maxLength={300} />
-
-        <button type="submit" className="button-ct">Submit</button>
+        <button type="submit" className="button-ct" disabled={!isValid}>Submit</button>
       </form>
     </section>
   );
