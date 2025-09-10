@@ -1,7 +1,6 @@
-
-import Dropdown from './Dropdown.jsx';
-import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Dropdown from './Dropdown.jsx';
 import "../Styles/Reservation.css";
 import { validateField, validateAll as coreValidateAll } from '../validation/reservationValidation.js';
 
@@ -14,7 +13,8 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
   const [errors, setErrors] = useState({});
   const [showSummary, setShowSummary] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const validate = validateField;
 
@@ -23,7 +23,6 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
     const error = validate(field, form[field]);
     setErrors((prev) => ({ ...prev, [field]: error }));
   };
-
 
   const handleChange = (field, value) => {
     onChange(field, value);
@@ -39,13 +38,16 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLocalSubmit = (e) => {
+  const handleLocalSubmit = async (e) => {
     e.preventDefault();
     setSubmitAttempted(true);
+    setIsSubmitting(true);
+    setError('');
     const valid = validateAll();
     if (!valid) {
       setTouched((prev) => ({ ...prev, name: true, lastName: true, email: true, phone: true, date: true, guests: true, time: true, specialOccasion: true, seatPreference: true }));
       setShowSummary(true);
+      setIsSubmitting(false);
       return;
     }
     const reservation = {
@@ -57,8 +59,19 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
     };
     reservation.tax = +(reservation.subtotal * reservation.taxRate).toFixed(2);
     reservation.total = +(reservation.subtotal + reservation.tax).toFixed(2);
-    onSubmit(reservation);
-    navigate('/reservation/payment');
+    try {
+      const result = await onSubmit(reservation);
+      if (result.success) {
+        navigate('/reservation/payment');
+      } else {
+        setError(result.error || 'Failed to submit reservation');
+      }
+    } catch (error) {
+      setError('An error occurred while submitting the reservation');
+      console.error('Submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -232,9 +245,15 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit }) {
          <button
            type="submit"
            className="button-ct"
+           disabled={isSubmitting}
          >
-          Continue
+          {isSubmitting ? 'Submitting...' : 'Continue'}
         </button>
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
       </form>
     </section>
   );

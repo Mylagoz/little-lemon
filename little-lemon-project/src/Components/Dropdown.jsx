@@ -1,6 +1,9 @@
 import "../Styles/Dropdown.css"
 
 function Dropdown({ options, value, onChange, ariaLabel, field }) {
+    // Ensure options is always an array
+    const safeOptions = Array.isArray(options) ? options : [];
+    
     return (
         <select
             value={value}
@@ -8,7 +11,10 @@ function Dropdown({ options, value, onChange, ariaLabel, field }) {
             aria-label={ariaLabel}
         >
             {ariaLabel && <option value="" disabled>{ariaLabel}</option>}
-            {options.map(option => (
+            {safeOptions.length === 0 && (
+                <option value="" disabled>No options available</option>
+            )}
+            {safeOptions.map(option => (
                 <option key={option} value={option}>
                     {option}
                 </option>
