@@ -1,19 +1,31 @@
 import { useNavigate} from 'react-router-dom';
-import {useState, useRef} from 'react';
+import {useRef} from 'react';
 import '../Styles/Payment.css';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
 
 function Payment({ className, reservation, onSubmit }) {
   const navigate = useNavigate();
   const dialogRef = useRef(null);
 
-  // Payment form state
-  const [card, setCard] = useState({
-    number: '',
-    name: '',
-    expiry: '',
-    cvc: ''
+  const PaymentSchema = Yup.object().shape({
+    cardNumber: Yup.string()
+      .required('Card number is required')
+      .test(
+        'is-credit-card',
+        'Must be a valid 16-digit card number',
+        value => value?.replace(/\s/g, '').length === 16 && /^\d{16}$/.test(value.replace(/\s/g, ''))
+      ),
+    cardName: Yup.string()
+      .required('Name on card is required')
+      .min(2, 'Name must be at least 2 characters'),
+    cardExpiry: Yup.string()
+      .required('Expiry date is required')
+      .matches(/^\d{2}\/\d{2}$/, 'Expiry date must be in MM/YY format'),
+    cardCvc: Yup.string()
+      .required('CVC is required')
+      .matches(/^\d{3,4}$/, 'CVC must be 3 or 4 digits'),
   });
-  const [error, setError] = useState('');
 
   if (!reservation) {
     return (
@@ -31,38 +43,54 @@ function Payment({ className, reservation, onSubmit }) {
     pricePerGuest, subtotal, tax, total
   } = reservation;
 
-  // Basic card validation
-  const isCardValid =
-    card.number.replace(/\s/g, '').length === 16 &&
-    card.name.trim().length > 0 &&
-    /^\d{2}\/\d{2}$/.test(card.expiry) &&
-    /^\d{3,4}$/.test(card.cvc);
+  const saveReservationToLocalStorage = () => {
+    try {
+      const reservationToSave = {
+        ...reservation,
+        id: Date.now(),
+        paymentDate: new Date().toISOString(),
+      }
+      const existingReservations = JSON.parse(localStorage.getItem('reservations')) || [];
+      const updatedReservations = [reservationToSave, ...existingReservations];
+      const limitedReservations = updatedReservations.slice(0, 10);
+      localStorage.setItem('reservations', JSON.stringify(limitedReservations));
+      localStorage.setItem('currentReservation', JSON.stringify(reservationToSave));
 
-  const handlePay = (e) => {
-    e.preventDefault();
-    if (!isCardValid) {
-      setError('Please fill all card fields correctly.');
+      console.log('Reservation saved successfully!');
+      return true;
+    } catch(error) {
+      console.error('Error saving reservation:', error);
+      return false;
+    }
+  };
+
+  const handleSubmit = (values, {setSubmitting, setStatus}) => {
+    const saved = saveReservationToLocalStorage();
+    if(!saved) {
+      setStatus({error: 'Failed to save reservation. Please try again.'});
+      setSubmitting(false);
       return;
     }
-    setError('');
-    
+
     dialogRef.current?.showModal();
+    setSubmitting(false);
   };
 
   const handleDialogClose = () => {
     dialogRef.current?.close();
     navigate('/');
-    onSubmit({  name:'',
-        lastName:'',
-        email:'',
-        phone:'',
-        date:'',
-        guests: '',
-        time:'',
-        specialOccasion:'',
-        comments:'',
-        seatPreference:''
-});
+    onSubmit({  
+      name: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      date: '',
+      guests: '',
+      time: '',
+      specialOccasion: '',
+      comments: '',
+      seatPreference: ''
+    });
   };
 
   return (
@@ -81,71 +109,127 @@ function Payment({ className, reservation, onSubmit }) {
         <li>Tax: ${tax.toFixed(2)}</li>
         <li><strong>Total: ${total.toFixed(2)}</strong></li>
       </ul>
-      <form className="payment-form" onSubmit={handlePay} style={{ marginTop: '2rem' }}>
-        <h3>Pay by Card</h3>
-        <label htmlFor="card-number">Card Number</label>
-        <input
-          id="card-number"
-          type="text"
-          inputMode="numeric"
-          maxLength={19}
-          placeholder="1234 5678 9012 3456"
-          value={card.number}
-          onChange={e => setCard({ ...card, number: e.target.value.replace(/[^\d ]/g, '') })}
-          autoComplete="cc-number"
-          required
-        />
-        <label htmlFor="card-name">Name on Card</label>
-        <input
-          id="card-name"
-          type="text"
-          placeholder="Cardholder Name"
-          value={card.name}
-          onChange={e => setCard({ ...card, name: e.target.value })}
-          autoComplete="cc-name"
-          required
-        />
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <div style={{ flex: 1 }}>
-            <label htmlFor="card-expiry">Expiry (MM/YY)</label>
-            <input
-              id="card-expiry"
-              type="text"
-              inputMode="numeric"
-              maxLength={5}
-              placeholder="MM/YY"
-              value={card.expiry}
-              onChange={e => setCard({ ...card, expiry: e.target.value.replace(/[^\d/]/g, '') })}
-              autoComplete="cc-exp"
-              required
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <label htmlFor="card-cvc">CVC</label>
-            <input
-              id="card-cvc"
-              type="text"
-              inputMode="numeric"
-              maxLength={4}
-              placeholder="CVC"
-              value={card.cvc}
-              onChange={e => setCard({ ...card, cvc: e.target.value.replace(/[^\d]/g, '') })}
-              autoComplete="cc-csc"
-              required
-            />
-          </div>
-        </div>
-        {error && <div style={{ color: 'red', marginTop: '0.5rem' }}>{error}</div>}
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-          <button type="button" className="button-ct" onClick={() => navigate('/reservation')}>Edit</button>
-          <button type="submit" className="button-ct" disabled={!isCardValid}>Pay ${total.toFixed(2)}</button>
-        </div>
-      </form>
+      
+      {/* Replace regular form with Formik */}
+      <Formik
+        initialValues={{
+          cardNumber: '',
+          cardName: '',
+          cardExpiry: '',
+          cardCvc: ''
+        }}
+        validationSchema={PaymentSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting, isValid, dirty, status, setFieldValue }) => (
+          <Form className="payment-form" style={{ marginTop: '2rem' }}>
+            <h3>Pay by Card</h3>
+            
+            <div className="form-group">
+              <label htmlFor="cardNumber">Card Number</label>
+              <Field
+                id="cardNumber"
+                name="cardNumber"
+                type="text"
+                inputMode="numeric"
+                maxLength={19}
+                placeholder="1234 5678 9012 3456"
+                autoComplete="cc-number"
+                aria-describedby="cc-hint"
+                onChange={(e) => {
+                  // Format card number with spaces
+                  const value = e.target.value.replace(/[^\d]/g, '');
+                  const formatted = value.replace(/(\d{4})/g, '$1 ').trim();
+                  setFieldValue('cardNumber', formatted);
+                }}
+              />
+              <p id="cc-hint" className="form-hint">Enter the 16-digit number without spaces</p>
+              <ErrorMessage name="cardNumber" component="div" className="error-message" />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="cardName">Name on Card</label>
+              <Field
+                id="cardName"
+                name="cardName"
+                type="text"
+                placeholder="Cardholder Name"
+                autoComplete="cc-name"
+              />
+              <ErrorMessage name="cardName" component="div" className="error-message" />
+            </div>
+            
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label htmlFor="cardExpiry">Expiry (MM/YY)</label>
+                <Field
+                  id="cardExpiry"
+                  name="cardExpiry"
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={5}
+                  placeholder="MM/YY"
+                  autoComplete="cc-exp"
+                  onChange={(e) => {
+                    // Format as MM/YY
+                    let value = e.target.value.replace(/[^\d]/g, '');
+                    if (value.length > 2) {
+                      value = value.slice(0, 2) + '/' + value.slice(2);
+                    }
+                    setFieldValue('cardExpiry', value);
+                  }}
+                />
+                <ErrorMessage name="cardExpiry" component="div" className="error-message" />
+              </div>
+              
+              <div className="form-group" style={{ flex: 1 }}>
+                <label htmlFor="cardCvc">CVC</label>
+                <Field
+                  id="cardCvc"
+                  name="cardCvc"
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={4}
+                  placeholder="CVC"
+                  autoComplete="cc-csc"
+                  onChange={(e) => {
+                    // Only allow digits
+                    const value = e.target.value.replace(/[^\d]/g, '');
+                    setFieldValue('cardCvc', value);
+                  }}
+                />
+                <ErrorMessage name="cardCvc" component="div" className="error-message" />
+              </div>
+            </div>
+            
+            {status && status.error && (
+              <div style={{ color: 'red', marginTop: '0.5rem' }}>{status.error}</div>
+            )}
+            
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+              <button 
+                type="button" 
+                className="button-ct" 
+                onClick={() => navigate('/reservation')}
+              >
+                Edit
+              </button>
+              <button 
+                type="submit" 
+                className="button-ct" 
+                disabled={isSubmitting || !isValid || !dirty}
+              >
+                Pay ${total.toFixed(2)}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
 
-  
       <dialog ref={dialogRef} className="payment-dialog">
         <h3>Payment Successful!</h3>
         <p>Your reservation is confirmed.</p>
+        <p>A copy has been saved to your device.</p>
         <button className="button-ct" onClick={handleDialogClose}>Return Home</button>
       </dialog>
     </section>

@@ -1,6 +1,6 @@
 import {Routes , Route } from 'react-router-dom'
 import Reservation from './Components/Reservation';
-import { useState , useReducer} from 'react';
+import { useState , useReducer, useEffect} from 'react';
 import RateUs from './Components/RateUs'
 import Menu from './Components/Menu'
 import About from './Components/About'
@@ -10,21 +10,46 @@ import Header from './Components/Header'
 import Main from './Components/Main'
 import Footer from './Components/Footer'
 import './App.css'
+import { fetchAPI } from './hooks/apiFallBack';
 
 
-const initialTimes =["17:00", "18:00", "19:00", "20:00", "21:00","22:00"]
-const updateTimes =(state, action)=>{
-    if(action.type ==='setByDate'){
-        const d = action.date;
-        if (!(d instanceof Date) || isNaN(d)) {
-            return state;
-        }if (d.getDay() === 0 || d.getDay() === 6) {
-            return initialTimes.filter(t=> parseInt(t,10) < 19);
+
+
+// Fixed initialTimes function
+const initialTimes = () => {
+    try {
+        if (typeof fetchAPI === 'function') { // FIXED: === instead of !==
+            const times = fetchAPI(new Date());
+            return Array.isArray(times) ? times : ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+        } else {
+            return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
         }
-        return initialTimes;
+    } catch {
+        return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
     }
-    return state;
-}
+};
+
+// Fixed reducer
+const updateTimes = (state, action) => {
+    switch (action.type) {
+        case 'SET_TIMES':
+            return action.times || [...state];
+            
+        case 'setByDate': { // Keep your existing action name
+            const d = action.date;
+            if (!(d instanceof Date) || isNaN(d)) {
+                return state;
+            }
+            if (d.getDay() === 0 || d.getDay() === 6) {
+                return state.filter(t => parseInt(t, 10) < 19);
+            }
+            return state;
+        }
+            
+        default:
+            return state;
+    }
+};
 
 function App() {
         
@@ -42,15 +67,57 @@ function App() {
 
     })
 
-const [availableTimes, dispatch] = useReducer(updateTimes, initialTimes);
-
-
-const handleFormChange = (field,value)=>{
+    // Start with default times from initialTimes
+    const [availableTimes, dispatch] = useReducer(updateTimes, initialTimes());
+    
+    // Add effect to load API and update times when component mounts
+    useEffect(() => {
+        const loadAPIAndUpdateTimes = async () => {
+            try {
+                if (typeof fetchAPI !== 'function') { // FIXED: Check if function exists
+                    console.log('fetchAPI not available');
+                    return;
+                }
+                
+                const today = new Date.now();
+                const times = fetchAPI(today);
+                
+                console.log('API returned times:', times);
+                dispatch({ type: 'SET_TIMES', times: times });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        
+        loadAPIAndUpdateTimes();
+    }, []); // Empty array means run once when component mounts
+    
+const handleFormChange = (field, value) => {
     setForm(f => ({...f, [field]: value}));
-    if (field === 'date'){
+    
+    if (field === 'date') {
         const dateObj = new Date(value);
+        
+        // First dispatch the setByDate action for immediate feedback
         dispatch({ type: 'setByDate', date: dateObj });
-     setForm(f =>({...f, time:availableTimes.includes(f.time)? f.time:''}));   
+        
+        // Then make a new API call for this specific date
+        try {
+            console.log('Fetching times for date:', dateObj);
+            const newTimes = fetchAPI(dateObj);
+            console.log('API returned times for new date:', newTimes);
+            
+            // Update times from API
+            dispatch({ type: 'SET_TIMES', times: newTimes });
+            
+            // Clear time selection if no longer available
+            setForm(f => ({
+                ...f, 
+                time: newTimes.includes(f.time) ? f.time : ''
+            }));
+        } catch (error) {
+            console.error('Error fetching times for new date:', error);
+        }
     }
 };
 const [currentReservation , setCurrentReservation] = useState(null);

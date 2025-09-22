@@ -48,6 +48,11 @@ function Footer({ className }) {
       </div>
       </div>
       <p className="Copyright">© 2025 Little Lemon. All rights reserved.</p>
+      {/* Footer navigation */}
+      <nav aria-label="Footer navigation">
+        <h2 className="visually-hidden">Footer links</h2>
+        {/* links... */}
+      </nav>
     </footer>
   )
 }

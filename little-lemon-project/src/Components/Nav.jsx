@@ -34,21 +34,17 @@ function Nav({ className }) {
   }
   const navLinks = (
     <>
-         
-            <li><Link to="/" onClick={scrollToHome}>Home</Link></li>
-            <li><a href="#about" onClick={e => {e.preventDefault(); goToAboutSection();}}>About</a></li>
-            <li><Link to="/menu">Menu</Link></li>
-            <li><Link to="/reservation">Reservation</Link></li>
-        
-        
-        
+            <li><Link to="/" onClick={scrollToHome} aria-current={window.location.pathname === '/' ? 'page' : undefined}>Home</Link></li>
+            <li><a href="#about" onClick={e => {e.preventDefault(); goToAboutSection();}} aria-current={window.location.pathname === '/' ? 'page' : undefined}>About</a></li>
+            <li><Link to="/menu" aria-current={window.location.pathname === '/menu' ? 'page' : undefined}>Menu</Link></li>
+            <li><Link to="/reservation" aria-current={window.location.pathname === '/reservation' ? 'page' : undefined}>Reservation</Link></li>
 
     </>
   );
 
 
   return (
-    <nav className={className}>
+    <nav className={className} aria-label='Main Navigation'>
       {isMobile ? (
         <>
           <button onClick={toggleMobileNav}

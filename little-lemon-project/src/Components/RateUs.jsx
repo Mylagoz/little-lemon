@@ -72,6 +72,19 @@ function RateUs({ onAddReview }) {
           <div className="char-count" aria-live="polite">{form.review.trim().length}/300</div>
           {errors.review && <span id="error-review" className="error-message">{errors.review}</span>}
         </label>
+        {/* For star ratings */}
+        <fieldset>
+          <legend>Rate your experience:</legend>
+          <input 
+            type="radio" 
+            id="star5" 
+            name="rating" 
+            value="5" 
+            aria-label="5 stars"
+          />
+          <label htmlFor="star5" className="star-label">★</label>
+          {/* other stars... */}
+        </fieldset>
         <button type="submit" className="button-ct" disabled={!isValid}>Submit</button>
       </form>
     </section>
