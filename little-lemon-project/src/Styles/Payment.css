@@ -91,6 +91,18 @@
   font-size: 0.98rem;
 }
 
+.error-message {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
 
 .payment-form .row {
   display: flex;
