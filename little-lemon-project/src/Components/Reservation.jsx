@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import "../Styles/Reservation.css";
 
 function Reservation({ className, onChange, form, availableTimes, onSubmit, timesLoading, timesError }) {
-  const specialOccasionOptions = ["birthday", "anniversary", "wedding"];
+  const specialOccasionOptions = ["birthday", "anniversary", "wedding", "none"];
   const seatPreferenceOptions = ["indoor", "outdoor", "window"];
   const navigate = useNavigate();
 
@@ -199,7 +199,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
               </div>
               
               <div className="form-group">
-                <label htmlFor="guests">
+                <label htmlFor="guests" className="input-guests">
                   Guests*
                   <Field
                     type="number"
@@ -222,9 +222,9 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
                 </label>
               </div>
             </div>
-            
-      
-            <div>
+
+
+            <div className ="dropdowns-container">
               <div className="form-group">
                 <label htmlFor="time">
                   Choose Time*
@@ -279,7 +279,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
             </div>
             
            
-            <div className="form-group">
+            <div className="form-group-textarea">
               <label htmlFor="comments">
                 Additional Comments
                 <Field

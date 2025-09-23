@@ -6,10 +6,9 @@
 
 .specials-header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2rem;
   align-items: center;
-  width: 50%;
   padding: 1rem 3rem;
 }
 
@@ -59,7 +58,7 @@
 .specials-cards h3 {
   font-size: 1.5rem;
   font-weight: bold;
-   text-wrap: nowrap;
+   white-space: nowrap;
    text-align: space-evenly;
    width: 100%;
 }
@@ -93,3 +92,11 @@
   padding: 1rem;
   justify-content: space-between;
 }
+
+@media (max-width: 480px){
+  .specials-header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
