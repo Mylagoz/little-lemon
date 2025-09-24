@@ -1,7 +1,6 @@
 import {Routes , Route, useNavigate } from 'react-router-dom'
 import Reservation from './Components/Reservation';
 import { useState , useReducer, useEffect} from 'react';
-import { useState , useReducer, useEffect} from 'react';
 import RateUs from './Components/RateUs'
 import Menu from './Components/Menu'
 import About from './Components/About'
@@ -12,6 +11,13 @@ import Main from './Components/Main'
 import Footer from './Components/Footer'
 import './App.css'
 import { fetchAPI } from './hooks/apiFallBack';
+
+
+const submitForm = async (formData) => {
+ 
+    console.log("Submitting form data:", formData);
+    return { success: true };
+};
 
 
 
