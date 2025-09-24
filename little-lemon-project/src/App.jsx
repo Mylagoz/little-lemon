@@ -1,5 +1,6 @@
-import {Routes , Route } from 'react-router-dom'
+import {Routes , Route, useNavigate } from 'react-router-dom'
 import Reservation from './Components/Reservation';
+import { useState , useReducer, useEffect} from 'react';
 import { useState , useReducer, useEffect} from 'react';
 import RateUs from './Components/RateUs'
 import Menu from './Components/Menu'
@@ -52,6 +53,7 @@ const updateTimes = (state, action) => {
 };
 
 function App() {
+  const navigate = useNavigate();
         
  const [form, setForm] = useState ({
         name:'',
@@ -64,7 +66,6 @@ function App() {
         specialOccasion:'',
         comments:'',
         seatPreference:''
-
     })
 
 
@@ -119,15 +120,23 @@ const handleFormChange = (field, value) => {
         }
     }
 };
+
 const [currentReservation , setCurrentReservation] = useState(null);
 
-
-const handleReservationSubmit = (reservationData)=>{
+const handleReservationSubmit = async (reservationData) => {
     setCurrentReservation(reservationData);
-  
+    
+    
+    const result = await submitForm(reservationData);
+    
+    if (result.success) {
+      navigate('/booking-confirmed');
+    } else {
+      console.error("Failed to submit reservation");
+    }
 }
 
-   const [reviews, setReviews] = useState([
+const [reviews, setReviews] = useState([
     { 
         name: 'John Doe',
         review: 'The food was amazing! I loved the Greek salad and the lemon dessert.',
@@ -167,17 +176,14 @@ const handleAddReview =(newReview) =>{
            updatedReviews.pop()
       }
       return updatedReviews
-     })
-     
+     })     
 }
-
 
   return (
     <div className="App">
-  
         <Header className="Header" />
         <Routes>
-          <Route path="/" element={<Main className="Main" reviews={reviews} />} />
+          <Route path="/" element={<Main className="Main" reviews={reviews} submitForm={(formData) => submitForm(formData, navigate)} />} />
           <Route path="/rate-us" element={<RateUs className="RateUs" onAddReview={handleAddReview} />} />
           <Route 
             path="/reservation" 
@@ -190,11 +196,11 @@ const handleAddReview =(newReview) =>{
             onSubmit={handleReservationSubmit}
            />} />
            <Route path="/reservation/payment" element={<Payment className="Payment" reservation={currentReservation} onSubmit={setForm} />} />
+           <Route path="/booking-confirmed" element={<div>Booking Confirmed!</div>} />
           <Route path="/menu" element={<Menu className="Menu" />} />
           <Route path="/about" element={<About className="about" id="about" />} />
           <Route path="/specials" element={<Specials className="specials" />} />
         </Routes>
-        
         <Footer className="Footer" />
     </div>
   )
