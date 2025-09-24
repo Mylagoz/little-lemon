@@ -1,22 +1,44 @@
 .Payment {
-  background: #edefee;
-  border-radius: 1.5rem;
-    grid-column: 2 / span 10;
-  max-width: 480px;
-  margin: 2rem auto;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  font-family: 'Karla', Arial, sans-serif;
-  border: 0.2rem solid #333;
+    display: flex;
+    grid-column: 1 / span 12;
+    flex-direction: column;
+    gap: 2rem;
+    align-content: center;
+    justify-content: center;
+    padding: 2rem 1rem;
 }
 
 
-.Payment h2, .Payment h3 {
-  text-align: center;
-  color: #333;
-  font-family: 'Karla', Arial, sans-serif;
-  margin-bottom: 1.2rem;
+.Payment h2 {
+    color: #495E57;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Markazi Text', serif;
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
 }
+
+.Payment h3 {
+    color: #495E57;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Markazi Text', serif;
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.Payment h2:after{
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: #F4CE14;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
 
 .Payment ul {
   list-style: none;
@@ -31,8 +53,22 @@
 }
 
 .payment-form {
-  margin-top: 2rem;
+ display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: none;
+    border-radius: 1rem;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .payment-form label {
   display: block;
@@ -43,25 +79,26 @@
 }
 
 .payment-form input {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #c7cbcf;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  background: #495E57;
-  font-family: inherit;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
+ width: 100%;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    color: #333;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .payment-form input::placeholder {
-  color: #c7c7c7;
+  color: #333;
 }
 
 .payment-form input:focus {
-  border-color: #f4ce14;
   outline: none;
+    border-color: #495E57;
+    box-shadow: 0 0 0 2px rgba(73, 94, 87, 0.2);
+    background-color: #fff;
 }
 
 .payment-form .button-ct {
@@ -116,11 +153,11 @@
 
 @media (max-width: 600px) {
   .Payment {
-    padding: 1rem;
+     padding: 1.2rem;
     max-width: 98vw;
   }
   .Payment h2, .Payment h3 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
   .payment-form .row {
     flex-direction: column;

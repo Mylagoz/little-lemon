@@ -67,19 +67,18 @@ function App() {
 
     })
 
-    // Start with default times from initialTimes
+
     const [availableTimes, dispatch] = useReducer(updateTimes, initialTimes());
-    
-    // Add effect to load API and update times when component mounts
+
     useEffect(() => {
         const loadAPIAndUpdateTimes = async () => {
             try {
-                if (typeof fetchAPI !== 'function') { // FIXED: Check if function exists
+                if (typeof fetchAPI !== 'function') { 
                     console.log('fetchAPI not available');
                     return;
                 }
                 
-                const today = new Date.now();
+                const today = new Date();
                 const times = fetchAPI(today);
                 
                 console.log('API returned times:', times);
@@ -90,7 +89,7 @@ function App() {
         };
         
         loadAPIAndUpdateTimes();
-    }, []); // Empty array means run once when component mounts
+    }, []); 
     
 const handleFormChange = (field, value) => {
     setForm(f => ({...f, [field]: value}));

@@ -41,7 +41,8 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
       .max(200, 'Comments cannot exceed 200 characters')
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values ) => {
+
     const reservation = {
       ...values,
       guests: Number(values.guests),
@@ -63,7 +64,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
 
   return (
     <section className={className} aria-labelledby="reservation-heading">
-      <h2 id="reservation-heading">Reserve a Table</h2>
+     
       
       {timesLoading && (
         <div className="loading-message" aria-live="polite">Loading available times...</div>
@@ -83,6 +84,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
       >
         {({ values, errors, touched, setFieldValue, handleBlur, isSubmitting, isValid }) => (
           <Form className={`${className}-form`} noValidate aria-label="Reservation form">
+             <h2 id="reservation-heading">Reserve a Table</h2>
            
             {Object.keys(errors).length > 0 && Object.keys(touched).length > 0 && (
               <div className="visually-hidden" role="alert" aria-live="assertive">
@@ -232,7 +234,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
                   <Dropdown
                     options={availableTimes}
                     value={values.time}
-                    ariaLabel="Choose reservation time"
+                    ariaLabel="Choose time"
                     ariaRequired="true"
                     ariaInvalid={!!(touched.time && errors.time)}
                     field="time"
@@ -249,7 +251,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
                   <Dropdown
                     options={specialOccasionOptions}
                     value={values.specialOccasion}
-                    ariaLabel="Select special occasion"
+                    ariaLabel="Special Occasion"
                     ariaRequired="true"
                     ariaInvalid={!!(touched.specialOccasion && errors.specialOccasion)}
                     field="specialOccasion"
@@ -266,7 +268,7 @@ function Reservation({ className, onChange, form, availableTimes, onSubmit, time
                   <Dropdown
                     options={seatPreferenceOptions}
                     value={values.seatPreference}
-                    ariaLabel="Select seating preference"
+                    ariaLabel="Seating preference"
                     ariaRequired="true"
                     ariaInvalid={!!(touched.seatPreference && errors.seatPreference)}
                     field="seatPreference"

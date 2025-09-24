@@ -65,6 +65,7 @@ function Payment({ className, reservation, onSubmit }) {
   };
 
   const handleSubmit = (values, {setSubmitting, setStatus}) => {
+   
     const saved = saveReservationToLocalStorage();
     if(!saved) {
       setStatus({error: 'Failed to save reservation. Please try again.'});
@@ -95,22 +96,9 @@ function Payment({ className, reservation, onSubmit }) {
 
   return (
     <section className={className}>
-      <h2>Reservation Review</h2>
-      <ul>
-        <li>Name: {name} {lastName}</li>
-        <li>Date: {date}</li>
-        <li>Time: {time}</li>
-        <li>Guests: {guests}</li>
-      </ul>
-      <h3>Bill</h3>
-      <ul>
-        <li>Price per guest: ${pricePerGuest.toFixed(2)}</li>
-        <li>Subtotal: ${subtotal.toFixed(2)}</li>
-        <li>Tax: ${tax.toFixed(2)}</li>
-        <li><strong>Total: ${total.toFixed(2)}</strong></li>
-      </ul>
+    
       
-      {/* Replace regular form with Formik */}
+     
       <Formik
         initialValues={{
           cardNumber: '',
@@ -123,6 +111,21 @@ function Payment({ className, reservation, onSubmit }) {
       >
         {({ isSubmitting, isValid, dirty, status, setFieldValue }) => (
           <Form className="payment-form" style={{ marginTop: '2rem' }}>
+
+              <h2>Reservation Review</h2>
+               <ul>
+                 <li>Name: {name} {lastName}</li>
+                 <li>Date: {date}</li>
+                 <li>Time: {time}</li>
+                 <li>Guests: {guests}</li>
+               </ul>
+              <h3>Bill</h3>
+                <ul>
+                 <li>Price per guest: ${pricePerGuest.toFixed(2)}</li>
+                 <li>Subtotal: ${subtotal.toFixed(2)}</li>
+                 <li>Tax: ${tax.toFixed(2)}</li>
+                 <li><strong>Total: ${total.toFixed(2)}</strong></li>
+                </ul>
             <h3>Pay by Card</h3>
             
             <div className="form-group">
@@ -159,8 +162,8 @@ function Payment({ className, reservation, onSubmit }) {
               <ErrorMessage name="cardName" component="div" className="error-message" />
             </div>
             
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <div className="form-group" style={{ flex: 1 }}>
+            <div className= "row" >
+              <div className="form-group" >
                 <label htmlFor="cardExpiry">Expiry (MM/YY)</label>
                 <Field
                   id="cardExpiry"
@@ -181,8 +184,8 @@ function Payment({ className, reservation, onSubmit }) {
                 />
                 <ErrorMessage name="cardExpiry" component="div" className="error-message" />
               </div>
-              
-              <div className="form-group" style={{ flex: 1 }}>
+
+              <div className="form-group">
                 <label htmlFor="cardCvc">CVC</label>
                 <Field
                   id="cardCvc"
