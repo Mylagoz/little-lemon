@@ -136,7 +136,7 @@ const handleReservationSubmit = async (reservationData) => {
     const result = await submitForm(reservationData);
     
     if (result.success) {
-      navigate('/booking-confirmed');
+      navigate('/reservation/payment');
     } else {
       console.error("Failed to submit reservation");
     }
